@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
-  validates :email, presence: true
-  validates :email, uniqueness: true
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
-  validates :password, presence: true
-
+  # validates :email, presence: true
+  # validates :email, uniqueness: true
+  # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  # validates :password, presence: true
+  has_many :posts
+  has_many :comments
   # BCrypt module which contains `class Password`
   # and methods for hashing passwords
   include BCrypt
@@ -28,14 +29,14 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate(user_info)
-    email = user_info[:email]
+    username = user_info[:username]
 
     # this uses the Password#password setter method above
     # Parameter user_info[:password] is wrapped in a Password object
     # which is stored in the variable `password`
     password = user_info[:password]
 
-    user = User.find_by(email: email) # latest ActiveRecord method
+    user = User.find_by(username: username) # latest ActiveRecord method
 
     # returns `user` if `user` exists and `user.password` de-encrypted string
     # matches the Password object to which it is being compared
@@ -51,8 +52,8 @@ class User < ActiveRecord::Base
     nil
   end
 
-  def get_name
-    self.first_name
-  end
+  # def get_name
+  #   self.first_name
+  # end
 
 end

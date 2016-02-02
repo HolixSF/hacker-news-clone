@@ -1,0 +1,48 @@
+<div>
+  <div class="post-container">
+    <div class="post">
+      <div class="post-header">
+        <div class="points">
+          <div>
+            <form method="post" action="/posts/<%= @post.id %>">
+              <input type="hidden" name="_method" value="put">
+              <button type="submit" name="upvote">upvote</button>
+            </form>
+          </div>
+          <div>
+            <span>Points:</span>
+            <span><%= @post.points %></span>
+          </div>
+        </div>
+        <div class="title">
+          <h1><%= @post.title  %></h1>
+        </div>
+      </div>
+      <div class="user">
+        <a href=""><%= @post.user.username %></a>
+      </div>
+      <div class="created-at">
+        <span><%= @post.formatted_duration %></span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <a href="/posts/<%= @post.id %>/comments/new">post comment</a>
+  </div>
+  <div class="comment-container">
+    <ul>
+      <% @post.comments.each do |comment| %>
+      <li>
+        <div class="comment">
+          <div>
+            <%= comment.message %>
+          </div>
+          <div>
+            <%= comment.user.username %>
+          </div>
+        <div>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

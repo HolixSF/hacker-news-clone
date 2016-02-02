@@ -1,9 +1,9 @@
 post '/login' do
-  user = User.authenticate(email: params[:email], password: params[:password])
+  user = User.authenticate(username: params[:username], password: params[:password])
 
   if user
     session[:user_id] = user.id
-    redirect to "users/#{current_user.id}"
+    redirect to home_url
   else
     redirect to home_url # see app/helpers/
   end
